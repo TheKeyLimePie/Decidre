@@ -16,4 +16,14 @@ public enum Assigning
 	{
 		return path;
 	}
+	
+	public static Assigning fromString(String s) throws Exception
+	{
+		for(Assigning a : Assigning.values())
+		{
+			if(a.getValue().equals(s))
+				return a;
+		}
+		throw new Exception();
+	}
 }

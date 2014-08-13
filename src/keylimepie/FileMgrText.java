@@ -20,6 +20,7 @@ public class FileMgrText extends FileMgr<String>
 	{
 		for(File f : getDirectories())
 		{
+			System.out.println("Loading files from \"" + f.getAbsolutePath() + "\"");
 			for(File file : f.listFiles())
 			{
 				//contains whole file content
@@ -43,6 +44,7 @@ public class FileMgrText extends FileMgr<String>
 					ioE.printStackTrace();
 				}
 				
+				System.out.println("\tLoaded \"" + file.getPath() + "\"");
 				addDecision(new TextFileObject(file.getName(), file.getPath(), Assigning.NONE, content));
 			}
 		}
