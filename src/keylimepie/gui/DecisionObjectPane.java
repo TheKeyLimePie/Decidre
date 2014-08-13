@@ -3,6 +3,7 @@ package keylimepie.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Insets;
+import java.awt.Point;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ public class DecisionObjectPane extends JPanel
 	
 	public DecisionObjectPane()
 	{
-		setBounds(0,0,800,550);
+		setSize(800,550);
 		setLayout(new BorderLayout());
 		content = new JTextArea();
 		content.setBackground(new Color(50, 50, 50));
@@ -43,7 +44,7 @@ public class DecisionObjectPane extends JPanel
 	{
 		content.setText(t.getContent());
 		info.setFilename(t.getFilename());
-		scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMinimum());
+		scrollPane.getViewport().setViewPosition(new Point(0,0));
 	}
 	
 	public JTextArea getContent()

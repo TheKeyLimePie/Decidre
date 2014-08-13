@@ -38,7 +38,6 @@ public class MainGUI extends JFrame
 			e.printStackTrace();
 		}
 		setLayout(null);
-		setResizable(false);
 		
 		menubar = new JMenuBar();
 		menu_file = new JMenu("File");

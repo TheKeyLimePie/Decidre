@@ -15,7 +15,7 @@ public class ButtonRow extends JPanel
 	
 	public ButtonRow()
 	{
-		setBounds(0,550,800,50);
+		setSize(800,50);
 		setLayout(new GridLayout());
 		
 		buttons = new ArrayList<>();

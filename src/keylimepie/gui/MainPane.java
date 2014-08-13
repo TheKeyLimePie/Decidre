@@ -1,5 +1,6 @@
 package keylimepie.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
@@ -14,12 +15,12 @@ public class MainPane extends JPanel
 	public MainPane()
 	{	
 		setSize(800, 600);
-		setLayout(null);
+		setLayout(new BorderLayout());
 		
 		content = new DecisionObjectPane();
-		add(content);
+		add(content, BorderLayout.CENTER);
 		buttons = new ButtonRow();
-		add(buttons);
+		add(buttons, BorderLayout.SOUTH);
 		
 		setVisible(true);
 	}
