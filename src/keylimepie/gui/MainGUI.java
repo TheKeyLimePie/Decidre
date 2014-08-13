@@ -86,7 +86,15 @@ public class MainGUI extends JFrame
 		mgr.addDirectory(new File("texts/"));
 		mgr.load();
 
-		mainPane.getContent().getContent().setText(mgr.hasNext() ? mgr.getNext().getContent() : "OOPS, ERROR");
+		if(mgr.hasNext())
+		{
+			mainPane.getContent().getInfo().setFilename(mgr.getNext().getFilename());
+			mainPane.getContent().getContent().setText(mgr.getCurrent().getContent());
+		}
+		else
+		{
+			mainPane.getContent().getContent().setText("OOPS, ERROR");
+		}
 	}
 	
 	public void decisionMade(Assigning a)
@@ -94,9 +102,13 @@ public class MainGUI extends JFrame
 		mgr.getCurrent().setAssigned(a);
 		System.out.println(mgr.getCurrent().getFilename() + ": " + mgr.getCurrent().getAssigned());
 		if(mgr.hasNext())
-			mainPane.getContent().getContent().setText(mgr.getNext().getContent());
+		{
+			mainPane.getContent().getInfo().setFilename(mgr.getNext().getFilename());
+			mainPane.getContent().getContent().setText(mgr.getCurrent().getContent());
+		}
 		else
 		{
+			mainPane.getContent().getInfo().setFilename("no file open");
 			mainPane.getContent().getContent().setText("");
 			//mgr.save();
 			mgr.unload();
