@@ -10,17 +10,15 @@ public class MainPane extends JPanel
 {
 	private DecisionObjectPane content;
 	private ButtonRow buttons;
-	private MainGUI root;
 	
-	public MainPane(MainGUI m)
+	public MainPane()
 	{
-		root = m;
 		setSize(800, 600);
 		setLayout(null);
 		
 		content = new DecisionObjectPane();
 		add(content);
-		buttons = new ButtonRow(root);
+		buttons = new ButtonRow();
 		add(buttons);
 		
 		setVisible(true);

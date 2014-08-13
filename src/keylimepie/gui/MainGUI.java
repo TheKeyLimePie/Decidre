@@ -2,6 +2,7 @@ package keylimepie.gui;
 
 import java.io.File;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -30,7 +31,23 @@ public class MainGUI extends JFrame
 		}
 		setLayout(null);
 		setResizable(false);
-		mainPane = new MainPane(this);
+		mainPane = new MainPane();
+		for(JButton b : mainPane.getButtons().getButtons())
+		{
+			b.addActionListener(ae ->
+			{
+				String value = ((JButton)ae.getSource()).getText();
+				try
+				{
+					Assigning a = Assigning.fromString(value);
+					decisionMade(a);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			});
+		}
 		setContentPane(mainPane);
 		pack();
 		
