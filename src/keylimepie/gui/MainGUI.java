@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -20,9 +22,8 @@ public class MainGUI extends JFrame
 	
 	private JMenuBar menubar;
 	private JMenu menu_file;
-	private JMenuItem file_filesToReadPath;
-	private JMenuItem file_decisions;
-	
+	private JMenuItem file_filesToReadPath, file_decisions, file_exit;
+
 	public void GUIinit()
 	{
 		setTitle("Decidre");
@@ -45,8 +46,13 @@ public class MainGUI extends JFrame
 		file_filesToReadPath.addActionListener(ae -> {System.out.println("Choose input dirs");});
 		file_decisions = new JMenuItem("Decision options...");
 		file_decisions.addActionListener(ae -> {System.out.println("Choose decision options");});
+		file_exit = new JMenuItem("Exit");
+		file_exit.addActionListener(ae -> {exit();});
 		menu_file.add(file_filesToReadPath);
 		menu_file.add(file_decisions);
+		//------------------------------
+		menu_file.add(new JSeparator());
+		menu_file.add(file_exit);
 		
 		menubar.add(menu_file);
 		
@@ -97,6 +103,13 @@ public class MainGUI extends JFrame
 		}
 	}
 	
+	
+	public void exit()
+	{
+		int i = JOptionPane.showConfirmDialog(this, "Are you sure?", "Exit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if(i == JOptionPane.YES_OPTION)
+			System.exit(0);
+	}
 	
 	public static void main(String args[])
 	{
