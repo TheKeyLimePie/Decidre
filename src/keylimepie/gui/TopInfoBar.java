@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class TopInfoBar extends JPanel
 {
-	private JLabel filename;
+	private JLabel headFilename;
 	
 	public TopInfoBar()
 	{
@@ -17,14 +17,14 @@ public class TopInfoBar extends JPanel
 		setBackground(new Color(35,35,35));
 		setForeground(Color.WHITE);
 		
-		filename = new JLabel("no file open");
-		filename.setForeground(Color.WHITE);
+		headFilename = new JLabel("no file open");
+		headFilename.setForeground(Color.WHITE);
 		
-		add(filename);
+		add(headFilename);
 	}
 	
-	public void setFilename(String name)
+	public void setHeadFilename(String name)
 	{
-		filename.setText(name);
+		headFilename.setText(name);
 	}
 }

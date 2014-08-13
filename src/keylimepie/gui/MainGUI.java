@@ -39,6 +39,7 @@ public class MainGUI extends JFrame
 		}
 		setLayout(null);
 		
+		//MenuBar
 		menubar = new JMenuBar();
 		menu_file = new JMenu("File");
 		file_filesToReadPath = new JMenuItem("Directories to scan...");
@@ -56,6 +57,7 @@ public class MainGUI extends JFrame
 		menubar.add(menu_file);
 		
 		mainPane = new MainPane();
+		//add ActionListeners here so there is a reference to decisionMade(); FileMgrText
 		for(JButton b : mainPane.getButtons().getButtons())
 		{
 			b.addActionListener(ae ->
@@ -79,6 +81,7 @@ public class MainGUI extends JFrame
 		setVisible(true);
 	}
 	
+	//after the GUI initialization is done load the technical concept
 	public void start()
 	{
 		mgr = new FileMgrText();
@@ -86,9 +89,9 @@ public class MainGUI extends JFrame
 		mgr.load();
 
 		if(mgr.hasNext())
-			mainPane.getContent().setTextFile(mgr.getNext());
+			mainPane.getDecObjectPane().setTextFile(mgr.getNext());
 		else
-			mainPane.getContent().getContent().setText("OOPS, ERROR");
+			mainPane.getDecObjectPane().getTextArea().setText("OOPS, ERROR");
 	}
 	
 	public void decisionMade(Assigning a)
@@ -96,11 +99,11 @@ public class MainGUI extends JFrame
 		mgr.getCurrent().setAssigned(a);
 		System.out.println(mgr.getCurrent().getFilename() + ": " + mgr.getCurrent().getAssigned());
 		if(mgr.hasNext())
-			mainPane.getContent().setTextFile(mgr.getNext());
+			mainPane.getDecObjectPane().setTextFile(mgr.getNext());
 		else
 		{
-			mainPane.getContent().getInfo().setFilename("no file open");
-			mainPane.getContent().getContent().setText("");
+			mainPane.getDecObjectPane().getInfo().setHeadFilename("no file open");
+			mainPane.getDecObjectPane().getTextArea().setText("");
 			//mgr.save();
 			mgr.unload();
 		}

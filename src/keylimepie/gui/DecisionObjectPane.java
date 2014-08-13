@@ -15,7 +15,7 @@ import keylimepie.TextFileObject;
 
 public class DecisionObjectPane extends JPanel
 {
-	private JTextArea content;
+	private JTextArea textArea;
 	private JScrollPane scrollPane;
 	private TopInfoBar info;
 	
@@ -23,33 +23,34 @@ public class DecisionObjectPane extends JPanel
 	{
 		setSize(800,550);
 		setLayout(new BorderLayout());
-		content = new JTextArea();
-		content.setBackground(new Color(50, 50, 50));
-		content.setForeground(Color.WHITE);
-		content.setEditable(false);
-		content.setMargin(new Insets(10, 10, 10, 10));
-		content.setLineWrap(true);
+		textArea = new JTextArea();
+		textArea.setBackground(new Color(50, 50, 50));
+		textArea.setForeground(Color.WHITE);
+		textArea.setEditable(false);
+		textArea.setMargin(new Insets(10, 10, 10, 10));
+		textArea.setLineWrap(true);
 		
 		info = new TopInfoBar();
 		
-		scrollPane = new JScrollPane(content, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		
 		add(info, BorderLayout.NORTH);
 		add(scrollPane, BorderLayout.CENTER);
 
 	}
-
+	
+	//sets TextArea and InfoBar with attributes of DecisionObject<>
 	public void setTextFile(DecisionObject<String> t)
 	{
-		content.setText(t.getContent());
-		info.setFilename(t.getFilename());
+		textArea.setText(t.getContent());
+		info.setHeadFilename(t.getFilename());
 		scrollPane.getViewport().setViewPosition(new Point(0,0));
 	}
 	
-	public JTextArea getContent()
+	public JTextArea getTextArea()
 	{
-		return content;
+		return textArea;
 	}
 
 	public TopInfoBar getInfo()
