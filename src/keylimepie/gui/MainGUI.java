@@ -12,7 +12,6 @@ import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import keylimepie.Assigning;
 import keylimepie.FileMgrText;
 
 public class MainGUI extends JFrame
@@ -21,12 +20,44 @@ public class MainGUI extends JFrame
 	private FileMgrText mgr;
 	
 	private JMenuBar menubar;
-	private JMenu menu_file;
-	private JMenuItem file_filesToReadPath, file_decisions, file_exit;
+	private JMenu menu_file, menu_edit;
+	private JMenuItem file_filesToReadPath, file_exit, edit_decisions;
 
+	private final String title = "Decidre";
+	
+	public MainGUI()
+	{
+		mgr = new FileMgrText();
+	}
+	
+	public void MenuInit()
+	{
+		menubar = new JMenuBar();
+		//File
+		menu_file = new JMenu("File");
+		file_filesToReadPath = new JMenuItem("Directories to scan...");
+		file_filesToReadPath.addActionListener(ae -> {System.out.println("Choose input dirs");});
+		
+		file_exit = new JMenuItem("Exit");
+		file_exit.addActionListener(ae -> {exit();});
+		menu_file.add(file_filesToReadPath);
+		//------------------------------
+		menu_file.add(new JSeparator());
+		menu_file.add(file_exit);
+		
+		//Edit
+		menu_edit = new JMenu("Edit");
+		edit_decisions = new JMenuItem("Decision options...");
+		edit_decisions.addActionListener(ae -> {System.out.println("Choose decision options");});
+		menu_edit.add(edit_decisions);
+		
+		menubar.add(menu_file);
+		menubar.add(menu_edit);
+	}
+	
 	public void GUIinit()
 	{
-		setTitle("Decidre");
+		setTitle(title);
 		setSize(800, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		try
@@ -39,41 +70,10 @@ public class MainGUI extends JFrame
 		}
 		setLayout(null);
 		
-		//MenuBar
-		menubar = new JMenuBar();
-		menu_file = new JMenu("File");
-		file_filesToReadPath = new JMenuItem("Directories to scan...");
-		file_filesToReadPath.addActionListener(ae -> {System.out.println("Choose input dirs");});
-		file_decisions = new JMenuItem("Decision options...");
-		file_decisions.addActionListener(ae -> {System.out.println("Choose decision options");});
-		file_exit = new JMenuItem("Exit");
-		file_exit.addActionListener(ae -> {exit();});
-		menu_file.add(file_filesToReadPath);
-		menu_file.add(file_decisions);
-		//------------------------------
-		menu_file.add(new JSeparator());
-		menu_file.add(file_exit);
-		
-		menubar.add(menu_file);
-		
 		mainPane = new MainPane();
-		//add ActionListeners here so there is a reference to decisionMade(); FileMgrText
-		for(JButton b : mainPane.getButtons().getButtons())
-		{
-			b.addActionListener(ae ->
-			{
-				String value = ((JButton)ae.getSource()).getText();
-				try
-				{
-					Assigning a = Assigning.fromString(value);
-					decisionMade(a);
-				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-			});
-		}
+		MenuInit();
+		ButtonsInit();
+		
 		setContentPane(mainPane);
 		setJMenuBar(menubar);
 		pack();
@@ -81,34 +81,65 @@ public class MainGUI extends JFrame
 		setVisible(true);
 	}
 	
+	//creates buttons with assignment names and ActionListener
+	public void ButtonsInit()
+	{
+		for(String s : mgr.getAssignings().keySet())
+		{
+			mainPane.getButtonRow().addButton(new JButton(s));
+		}
+		//add ActionListeners here so there is a reference to decisionMade(); FileMgrText
+		for(JButton b : mainPane.getButtonRow().getButtons())
+		{
+			b.addActionListener(ae ->
+			{
+				String value = ((JButton)ae.getSource()).getText();
+				try
+				{
+					decisionMade(value);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			});
+		}
+		revalidate();
+	}
+	
 	//after the GUI initialization is done load the technical concept
 	public void start()
 	{
-		mgr = new FileMgrText();
 		mgr.addDirectory(new File("texts/"));
 		mgr.load();
-
+		
 		if(mgr.hasNext())
+		{
 			mainPane.getDecObjectPane().setTextFile(mgr.getNext());
+			setTitle(title + " - " + ( ((mgr.getDecisions().indexOf(mgr.getCurrent()) + 1)*100 / mgr.getDecisions().size()) ) + "%");
+		}
 		else
 			mainPane.getDecObjectPane().getTextArea().setText("OOPS, ERROR");
 	}
 	
-	public void decisionMade(Assigning a)
+	public void decisionMade(String s)
 	{
-		mgr.getCurrent().setAssigned(a);
+		mgr.getCurrent().setAssigned(s);
 		System.out.println(mgr.getCurrent().getFilename() + ": " + mgr.getCurrent().getAssigned());
 		if(mgr.hasNext())
+		{
 			mainPane.getDecObjectPane().setTextFile(mgr.getNext());
+			setTitle(title + " - " + ( ((mgr.getDecisions().indexOf(mgr.getCurrent()) + 1)*100 / mgr.getDecisions().size()) ) + "%");
+		}
 		else
 		{
+			setTitle(title + " - Done!");
 			mainPane.getDecObjectPane().getInfo().setHeadFilename("no file open");
 			mainPane.getDecObjectPane().getTextArea().setText("");
 			//mgr.save();
 			mgr.unload();
 		}
 	}
-	
 	
 	public void exit()
 	{

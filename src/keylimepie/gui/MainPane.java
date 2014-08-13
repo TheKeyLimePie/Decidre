@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class MainPane extends JPanel
 {
 	private DecisionObjectPane decObjectPane;
-	private ButtonRow buttons;
+	private ButtonRow buttonRow;
 	
 	public MainPane()
 	{	
@@ -17,8 +17,8 @@ public class MainPane extends JPanel
 		
 		decObjectPane = new DecisionObjectPane();
 		add(decObjectPane, BorderLayout.CENTER);
-		buttons = new ButtonRow();
-		add(buttons, BorderLayout.SOUTH);
+		buttonRow = new ButtonRow();
+		add(buttonRow, BorderLayout.SOUTH);
 		
 		setVisible(true);
 	}
@@ -35,8 +35,8 @@ public class MainPane extends JPanel
 		return decObjectPane;
 	}
 
-	public ButtonRow getButtons()
+	public ButtonRow getButtonRow()
 	{
-		return buttons;
+		return buttonRow;
 	}
 }

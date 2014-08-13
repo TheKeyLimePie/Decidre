@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import keylimepie.Assigning;
-
 public class ButtonRow extends JPanel
 {
 	private ArrayList<JButton> buttons;
@@ -19,19 +17,17 @@ public class ButtonRow extends JPanel
 		setLayout(new GridLayout());
 		
 		buttons = new ArrayList<>();
-		
-		for(int x = 0; x < Assigning.values().length; x++)
-		{
-			JButton b = new JButton(Assigning.values()[x].getValue());
-			buttons.add(b);
-			buttons.get(x).setFont(new Font(Font.SANS_SERIF,Font.PLAIN, 20));
-			add(buttons.get(x));
-			
-		}
 	}
 	
 	public ArrayList<JButton> getButtons()
 	{
 		return buttons;
+	}
+	
+	public void addButton(JButton b)
+	{
+		b.setFont(new Font(Font.SANS_SERIF,Font.PLAIN, 20));
+		buttons.add(b);
+		add(b);
 	}
 }

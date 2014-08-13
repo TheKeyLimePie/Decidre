@@ -45,7 +45,7 @@ public class FileMgrText extends FileMgr<String>
 				}
 				
 				System.out.println("\tLoaded \"" + file.getPath() + "\"");
-				addDecision(new TextFileObject(file.getName(), file.getPath(), Assigning.NONE, content));
+				addDecision(new TextFileObject(file.getName(), file.getPath(), "neutral", content));
 			}
 		}
 	}
@@ -56,7 +56,7 @@ public class FileMgrText extends FileMgr<String>
 	{
 		for(DecisionObject<String> d : this)
 		{
-			File f = new File("DECISIONS/" + d.getAssigned().getValue() + "/" + d.getFilename());
+			File f = getAssigningPath(d.getAssigned(), d.getFilename());
 			//if the directory does not exist yet
 			f.getParentFile().mkdirs();
 			System.out.println(f.getAbsolutePath());

@@ -2,18 +2,26 @@ package keylimepie;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public abstract class FileMgr<T> implements Iterable<DecisionObject<T>>
 {
 	private ArrayList<File> directories;
 	private ArrayList<DecisionObject<T>> decisions;
+	private HashMap<String, File> assignings;
 	private DecisionObject<T> current;
+	private String root;
 	
 	public FileMgr()
 	{
 		directories = new ArrayList<>();
 		decisions = new ArrayList<>();
+		assignings = new HashMap<>();
+		root = "DECISIONS";
+		assignings.put("decision A", new File(root + "/decision A"));
+		assignings.put("decision B", new File(root + "/decision B"));
+		assignings.put("neutral", new File(root + "/neutral"));
 	}
 
 	public void addDirectory(File f)
@@ -46,6 +54,29 @@ public abstract class FileMgr<T> implements Iterable<DecisionObject<T>>
 		return decisions;
 	}
 
+	public File getAssigningPath(String s, String f)
+	{
+		if(assignings.get(s) != null)
+			return new File(assignings.get(s).getAbsolutePath() + "/" + f);
+		else
+			return new File(root + "/ERROR/" + f);
+	}
+	
+	public String getRoot()
+	{
+		return root;
+	}
+	
+	public void setRoot(String s)
+	{
+		root = s;
+	}
+	
+	public HashMap<String, File> getAssignings()
+	{
+		return assignings;
+	}
+	
 	public boolean hasNext()
 	{
 		if(current == null && decisions.size() > 0)
