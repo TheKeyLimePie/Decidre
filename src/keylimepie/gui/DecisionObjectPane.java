@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import keylimepie.DecisionObject;
+import keylimepie.TextFileObject;
+
 public class DecisionObjectPane extends JPanel
 {
 	private JTextArea content;
@@ -36,6 +39,13 @@ public class DecisionObjectPane extends JPanel
 
 	}
 
+	public void setTextFile(DecisionObject<String> t)
+	{
+		content.setText(t.getContent());
+		info.setFilename(t.getFilename());
+		scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMinimum());
+	}
+	
 	public JTextArea getContent()
 	{
 		return content;
