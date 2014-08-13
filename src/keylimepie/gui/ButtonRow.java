@@ -30,4 +30,21 @@ public class ButtonRow extends JPanel
 		buttons.add(b);
 		add(b);
 	}
+	
+	public void removeButton(JButton b)
+	{
+		if(buttons.contains(b))
+			buttons.remove(b);
+		
+		remove(b);
+	}
+	
+	public void clearAllButtons()
+	{
+		for(JButton b : buttons)
+		{
+			remove(b);
+		}
+		buttons.clear();
+	}
 }

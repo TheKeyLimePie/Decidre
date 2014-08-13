@@ -17,6 +17,7 @@ public class DecisionObjectPane extends JPanel
 	private JTextArea textArea;
 	private JScrollPane scrollPane;
 	private TopInfoBar info;
+	private static final String tutorial = "Welcome to Decidre!\n\nLoad your files you have to make a decision to via \"File\" - \"Load directories to scan...\".\nThen you specify your choose options with their paths via \"Edit\" - \"Specify decision options...\".\nFinally, click \"Start!\".";
 	
 	public DecisionObjectPane()
 	{
@@ -28,8 +29,10 @@ public class DecisionObjectPane extends JPanel
 		textArea.setEditable(false);
 		textArea.setMargin(new Insets(10, 10, 10, 10));
 		textArea.setLineWrap(true);
+		textArea.setText(tutorial);
 		
 		info = new TopInfoBar();
+		info.setHeadFilename("-Welcome to Decidre-");
 		
 		scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
