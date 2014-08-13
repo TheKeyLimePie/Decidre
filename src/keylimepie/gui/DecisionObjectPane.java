@@ -11,7 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import keylimepie.DecisionObject;
-import keylimepie.TextFileObject;
 
 public class DecisionObjectPane extends JPanel
 {
