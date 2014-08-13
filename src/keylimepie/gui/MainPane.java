@@ -1,9 +1,7 @@
 package keylimepie.gui;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class MainPane extends JPanel
@@ -11,8 +9,10 @@ public class MainPane extends JPanel
 	private DecisionObjectPane content;
 	private ButtonRow buttons;
 	
+
+	
 	public MainPane()
-	{
+	{	
 		setSize(800, 600);
 		setLayout(null);
 		
